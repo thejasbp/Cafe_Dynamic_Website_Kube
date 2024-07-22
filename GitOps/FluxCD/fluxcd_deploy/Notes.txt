@@ -1,1 +1,20 @@
 Fluxcd Command to Create FluxCD Manifest Files like Source and Sync Files.
+
+flux create source git my-app-repo \
+  --url=https://github.com/sreepathysois/Cafe_Dynamic_Website.git \
+  --branch=main \
+  --interval=1m \
+  --export > gitrepository.yaml
+
+flux create kustomization my-app-prod \
+  --source=GitRepository/my-app-repo \
+  --path="./Deploy/kustomize_cafe_app/overlays/prod" \
+  --target-namespace=prod \
+  --prune=true \
+  --interval=10m \
+  --validation=client \
+  --export > kustomization.yaml
+
+git add kustomization.yaml
+git commit -m "Add Kustomization object for FluxCD"
+git push origin main
