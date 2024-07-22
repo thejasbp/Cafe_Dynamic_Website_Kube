@@ -1,0 +1,1 @@
+Fluxcd Command to Create FluxCD Manifest Files like Source and Sync Files.
