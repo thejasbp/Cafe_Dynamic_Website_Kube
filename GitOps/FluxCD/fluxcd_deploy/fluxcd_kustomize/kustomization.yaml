@@ -6,7 +6,7 @@ metadata:
   name: my-app-prod
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 1m0s
   path: ./Deploy/kustomize_cafe_app/overlays/prod
   prune: true
   sourceRef:
