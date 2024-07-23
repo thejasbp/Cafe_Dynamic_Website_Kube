@@ -10,7 +10,7 @@
 
 	<div id="header" class="mainHeader">
 		<hr>
-		<div class="center">Staging App Test Mom &amp; Pop Caf&eacute;</div>
+		<div class="center">Prod App Test Mom &amp; Pop Caf&eacute;</div>
 	</div>
 	<br>
 	<?php
