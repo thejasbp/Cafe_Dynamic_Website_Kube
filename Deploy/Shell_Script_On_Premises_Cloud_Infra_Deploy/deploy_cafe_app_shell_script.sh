@@ -69,3 +69,8 @@ else
     echo "Database $DB_NAME already exists. Skipping creation and SQL script execution."
 fi
 
+# Get the IP address of the server
+IP_ADDRESS=$(hostname -I | awk '{print $1}')
+
+# Echo the message with the IP address
+echo "Cafe app is accessible at http://$IP_ADDRESS:80/mompopcafe"
