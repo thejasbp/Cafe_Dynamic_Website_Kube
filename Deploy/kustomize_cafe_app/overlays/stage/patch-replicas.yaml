@@ -3,13 +3,6 @@ kind: Deployment
 metadata:
   name: cafeweb
 spec:
-  replicas: 2
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: cafeweb
-spec:
   template:
     spec:
       containers:
