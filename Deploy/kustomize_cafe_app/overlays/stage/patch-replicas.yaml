@@ -7,6 +7,6 @@ spec:
     spec:
       containers:
       - name: cafeweb
-        image: sreedocker123/mompopcafeapp:v2  Replace with the appropriate image tag or use a placeholder
+        image: sreedocker123/mompopcafeapp:v1  Replace with the appropriate image tag or use a placeholder
   replicas: 2  # Replace with the appropriate replica count or use a placeholder
 
