@@ -31,3 +31,17 @@ kubectl rollout restart deployment/coredns -n kube-system
 
 argocd app list
 argocd app delete <application-name>
+
+
+######Delete Apploication######
+
+Deleting the Application from Kubernetes
+If you prefer, you can also delete the ArgoCD application directly from Kubernetes using kubectl:
+
+Get the application manifest:
+
+kubectl get applications.argoproj.io -n argocd
+
+kubectl delete application <application-name> -n argocd
+
+kubectl delete application my-application -n argocd
