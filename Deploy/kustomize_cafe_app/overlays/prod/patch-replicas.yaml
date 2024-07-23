@@ -7,5 +7,5 @@ spec:
     spec:
       containers:
       - name: cafeweb
-        image: sreedocker123/mompopcafeapp:v3  
-  replicas: 4  
+        image: sreedocker123/mompopcafeapp:v1  
+  replicas: 3  
