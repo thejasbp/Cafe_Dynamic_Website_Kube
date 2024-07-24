@@ -1,8 +1,0 @@
----
-- name: Deploy Cafe App on Bare Metal
-  hosts: all
-  become: yes
-  roles:
-    - role: mysql
-    - role: cafeweb
-
