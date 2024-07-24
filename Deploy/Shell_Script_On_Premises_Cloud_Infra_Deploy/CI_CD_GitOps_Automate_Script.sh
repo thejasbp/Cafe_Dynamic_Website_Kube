@@ -79,7 +79,7 @@ echo "Cafe app is accessible at http://$IP_ADDRESS:80/mompopcafe"
 # Update Configuration Manifest after CI Pipeline to Change Stage of Configuration Manifest (Kustomize App)
 
 GITHUB_USER="sreepathysois"
-GITHUB_TOKEN="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"
+GITHUB_TOKEN="<Token>"
 GIT_REPO="https://github.com/sreepathysois/Cafe_Dynamic_Website.git"
 GIT_BRANCH="main"
 
