@@ -1,0 +1,57 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install MySQL server and client
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mysql-server
+    - mysql-client
+    - python3-pymysql  # Install PyMySQL for Python 3.x
+
+- name: Ensure MySQL service is enabled and started
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+    #- name: Alter MySQL root user
+    #mysql_user:
+    #name: root
+    #host: localhost
+    #password: "{{ db_root_password }}"
+    #priv: '*.*:ALL,GRANT'
+    #state: present
+    #login_user: root
+    #login_password: "{{ db_root_password }}"
+    
+
+# Alter MySQL root user only it it doesnt Exist 
+
+- name: Copy create-db.sql to /tmp
+  template:
+    src: "create-db.sql.j2"
+    dest: "/tmp/create-db.sql"
+
+    #- name: Create database and tables
+    #mysql_db:
+    #name: "{{ mysql_database }}"
+    #state: import
+    #target: "/tmp/create-db.sql"
+   
+- name: Execute SQL script to create database and tables
+  mysql_db:
+    name: "{{ db_name }}"
+    state: import
+    target: /tmp/create-db.sql
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_root_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+
+- name: Enable and start MySQL server
+  include_tasks: "handlers/main.yml"
+
