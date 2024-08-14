@@ -26,6 +26,7 @@ sudo systemctl restart apache2
 
 # MySQL credentials
 DB_USER="root"
+DB_APP_USER="msis"
 DB_PASSWORD="Msois@123"
 DB_HOST="localhost"
 DB_NAME="mom_pop_db"
@@ -38,20 +39,22 @@ SQL_SCRIPT="./mompopdb/create-db.sql"
 #mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWORD $DB_NAME < $SQL_SCRIPT
 
 # MySQL command to check if the user already exists
-CHECK_USER_QUERY="SELECT user FROM mysql.user WHERE user = 'root';"
+CHECK_USER_QUERY="SELECT user FROM mysql.user WHERE user = 'msis';"
 
 # MySQL command to create the user
-ALTER_USER_QUERY="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Msois@123'";
-CREATE_USER_QUERY="CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Msois@123';"
+ALTER_USER_QUERY="ALTER USER 'msis'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Msois@123'";
+CREATE_USER_QUERY="CREATE USER IF NOT EXISTS 'msis'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Msois@123';"
 
 # MySQL command to grant privileges to the user
-#GRANT_PRIVILEGES_QUERY="GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;"
+GRANT_PRIVILEGES_QUERY="GRANT ALL PRIVILEGES ON *.* TO 'msis'@'localhost' WITH GRANT OPTION;"
 
 # MySQL command to flush privileges
 FLUSH_PRIVILEGES_QUERY="FLUSH PRIVILEGES;"
 
 # Execute MySQL commands
 sudo mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$CHECK_USER_QUERY"
+sudo mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$CREATE_USER_QUERY"
+
 sudo mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$ALTER_USER_QUERY"
 sudo mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$GRANT_PRIVILEGES_QUERY"
 sudo mysql -u"$DB_USER" -p"$DB_PASSWORD" -h"$DB_HOST" -e "$FLUSH_PRIVILEGES_QUERY"
@@ -61,10 +64,10 @@ DB_EXISTS=$(mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWORD -e "SELECT COUNT(*) FROM 
 
 if [ $DB_EXISTS -eq 0 ]; then
     # Create the database if it doesn't exist
-    mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+    mysql -h$DB_HOST -u$DB_APP_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
     
     # Execute the SQL script
-    mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWORD $DB_NAME < $SQL_SCRIPT
+    mysql -h$DB_HOST -u$DB_APP_USER -p$DB_PASSWORD $DB_NAME < $SQL_SCRIPT
 else
     echo "Database $DB_NAME already exists. Skipping creation and SQL script execution."
 fi
