@@ -10,7 +10,7 @@ cafeweb:
   tag: v1
 
 persistentVolume:
-  size: 10Gi
+  size: 20Gi
   hostPath: "/mnt/data/dev"
 
 config:
