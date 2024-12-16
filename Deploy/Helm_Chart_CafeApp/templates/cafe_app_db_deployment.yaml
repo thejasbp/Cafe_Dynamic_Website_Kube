@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-mysql
   labels:
     app: cafeapp
+    tier: mysql
 spec:
   selector:
     matchLabels:
@@ -28,6 +29,8 @@ spec:
               key: password
         - name: MYSQL_DATABASE
           value: {{ .Values.mysql.database }}
+        - name: MYSQL_USER
+          value: {{ .Values.mysql.user }}
         ports:
         - containerPort: 3306
           name: mysql
@@ -38,4 +41,3 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-mysql-pv-claim
-
