@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cafeweb
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - cafeweb-gateway
+  http:
+    - route:
+        - destination:
+            host: {{ .Chart.Name }}-cafeweb
+            subset: primary
+          weight: 90
+        - destination:
+            host: {{ .Chart.Name }}-cafeweb
+            subset: canary
+          weight: 10
