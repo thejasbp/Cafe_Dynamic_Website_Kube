@@ -8,7 +8,10 @@ spec:
   source:
     repoURL: 'https://github.com/thejasbp/Cafe_Dynamic_Website_Kube.git'
     targetRevision: HEAD
-    path: CafeApp
+    path: Deploy/Helm_Chart_CafeApp
+    helm:
+      valueFiles:
+        - values-dev.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
