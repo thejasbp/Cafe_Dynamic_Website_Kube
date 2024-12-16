@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-cafeweb-config
   labels:
     app: cafeapp
+    tier: frontend
 data:
   getAppParameters.php: |
     <?php
@@ -15,4 +16,3 @@ data:
     $db_user = "{{ .Values.config.db_user }}";
     $db_password = "{{ .Values.config.db_password }}";
     ?>
-
