@@ -11,13 +11,13 @@ spec:
     matchLabels:
       app: cafeapp
       tier: frontend
-      #version: {{ .Values.version | default "primary" }}  # Match the version in the selector
+      version: {{ .Values.version }}  # Match the version in the selector
   template:
     metadata:
       labels:
         app: cafeapp
         tier: frontend
-        #version: {{ .Values.version | default "primary" }}  # Add the version label to the pod template
+        version: {{ .Values.version }}  # Add the version label to the pod template
     spec:
       containers:
       - name: cafeweb
