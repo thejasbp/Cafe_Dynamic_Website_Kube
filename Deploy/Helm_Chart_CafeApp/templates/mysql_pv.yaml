@@ -4,12 +4,13 @@ metadata:
   name: {{ .Release.Name }}-mysql-pv
   labels:
     app: cafeapp
+    tier: mysql
 spec:
   capacity:
     storage: {{ .Values.persistentVolume.size }}
-    #storage: null
   accessModes:
     - ReadWriteOnce
   hostPath:
     path: {{ .Values.persistentVolume.hostPath }}
+  persistentVolumeReclaimPolicy: Retain # Ensures data is retained even if the PV is deleted
 
