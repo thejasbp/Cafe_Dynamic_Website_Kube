@@ -4,20 +4,21 @@ metadata:
   name: {{ .Release.Name }}-cafeweb
   labels:
     app: cafeapp
-    version: {{ .Values.version }}  # Set the default to primary
+    tier: frontend
+    version: {{ .Values.cafeweb.tag }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: cafeapp
       tier: frontend
-      version: {{ .Values.version }}  # Match the version in the selector
+      version: {{ .Values.cafeweb.tag }}
   template:
     metadata:
       labels:
         app: cafeapp
         tier: frontend
-        version: {{ .Values.version }}  # Add the version label to the pod template
+        version: {{ .Values.cafeweb.tag }}
     spec:
       containers:
       - name: cafeweb
@@ -25,16 +26,16 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: MYSQL_HOST
-          value: {{ .Release.Name }}-mysql
-        - name: MYSQL_DATABASE
-          value: {{ .Values.mysql.database }}
-        - name: MYSQL_USER
-          value: {{ .Values.mysql.user }}
-        - name: MYSQL_ROOT_PASSWORD
+        - name: DB_HOST
+          value: {{ .Values.config.db_url }}
+        - name: DB_NAME
+          value: {{ .Values.config.db_name }}
+        - name: DB_USER
+          value: {{ .Values.config.db_user }}
+        - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-mysql-pass
+              name: {{ .Release.Name }}-db-pass
               key: password
         volumeMounts:
         - name: app-config-volume
