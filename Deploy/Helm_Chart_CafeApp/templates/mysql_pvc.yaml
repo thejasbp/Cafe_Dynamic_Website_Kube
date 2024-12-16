@@ -4,10 +4,16 @@ metadata:
   name: {{ .Release.Name }}-mysql-pv-claim
   labels:
     app: cafeapp
+    tier: mysql
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.persistentVolume.size }}
+  selector:
+    matchLabels:
+      app: cafeapp
+      tier: mysql
+
 
