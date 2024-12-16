@@ -4,11 +4,14 @@ metadata:
   name: {{ .Release.Name }}-mysql
   labels:
     app: cafeapp
+    tier: mysql
 spec:
   type: ClusterIP
   ports:
     - port: 3306
+      targetPort: 3306
   selector:
     app: cafeapp
     tier: mysql
+
 
